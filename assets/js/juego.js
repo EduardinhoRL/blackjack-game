@@ -16,7 +16,7 @@ const crearDeck = () => {
     }
 
     deck = _.shuffle(deck);
-    console.log(deck);
+
 }
 
 crearDeck();
@@ -24,11 +24,27 @@ crearDeck();
 
 const pedirCarta = () => {
 
+    if (deck.length === 0) {
+        throw 'No hay cartas disponibles'
+    }
     const carta = deck.pop();
-
+    console.log(deck);
     return carta;
 }
 
-console.log(pedirCarta());
+const valorCarta = (carta) => {
+    const valor = carta.substring(0, carta.length - 1);
 
-console.log(deck);
+    return (isNaN(valor)) ?
+        (valor === 'A') ? 11 : 10 :
+        valor * 1
+}
+
+const valor = valorCarta(pedirCarta());
+
+// Eventos
+
+
+
+//console.log(pedirCarta());
+//console.log(deck);

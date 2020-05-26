@@ -22,4 +22,6 @@ body {
 }
 
 #computadora-cartas,
-#jugador-cartas {}
+#jugador-cartas {
+    height: 200px;
+}
