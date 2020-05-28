@@ -10,7 +10,9 @@ let puntosJugador = 0,
 const PuntosHTML = document.querySelectorAll('small');
 
 const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasComputadora = document.querySelector('#computadora-cartas');
 const btnPedir = document.querySelector('#btnPedir');
+const btnDetener = document.querySelector('#btnDetener');
 
 const crearDeck = () => {
     for (let i = 2; i <= 10; i++) {
@@ -52,6 +54,24 @@ const valorCarta = (carta) => {
 
 const valor = valorCarta(pedirCarta());
 
+// Turno IA
+
+const turnoComputadora = (puntosMinimos) => {
+
+    do {
+        const carta = pedirCarta();
+
+        puntosComputadora = puntosComputadora + valorCarta(carta);
+
+        PuntosHTML[1].innerText = puntosComputadora;
+
+        const imgCarta = document.createElement('img');
+        imgCarta.src = `assets/cartas/${carta}.png`;
+        imgCarta.classList.add('carta');
+        divCartasComputadora.append(imgCarta);
+    } while ((puntosComputadora < puntosMinimos) && (puntosJugador <= 21));
+}
+
 // Eventos
 
 btnPedir.addEventListener('click', () => {
@@ -69,11 +89,18 @@ btnPedir.addEventListener('click', () => {
     if (puntosJugador > 21) {
         console.warn('Perdiste');
         btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
     } else if (puntosJugador === 21) {
         console.warn('21, Ganaste!!');
         btnPedir.disabled = true;
+        btnDetener.disabled = true;
     }
 });
 
-//console.log(pedirCarta());
-//console.log(deck);
+btnDetener.addEventListener('click', () => {
+    btnPedir.disabled = true;
+    btnDetener.disabled = true;
+
+    turnoComputadora(puntosJugador);
+})
