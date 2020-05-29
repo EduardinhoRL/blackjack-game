@@ -39,7 +39,6 @@ const pedirCarta = () => {
         throw 'No hay cartas disponibles'
     }
     const carta = deck.pop();
-    console.log(deck);
     return carta;
 }
 
@@ -99,12 +98,10 @@ btnPedir.addEventListener('click', () => {
     divCartasJugador.append(imgCarta);
 
     if (puntosJugador > 21) {
-        console.warn('Perdiste');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador);
     } else if (puntosJugador === 21) {
-        console.warn('21, Ganaste!!');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
     }
@@ -121,9 +118,7 @@ btnNuevo.addEventListener('click', () => {
 
     console.clear();
     deck = [];
-    console.log(deck);
     deck = crearDeck();
-    console.log(deck);
     btnPedir.disabled = false;
     btnDetener.disabled = false;
     puntosJugador = 0;
